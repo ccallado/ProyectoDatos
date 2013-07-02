@@ -11,6 +11,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
+using System.Data.OleDb;
+using System.Data.SqlClient;
+
 namespace ProyectoDatos
 {
     /// <summary>
@@ -60,6 +63,182 @@ namespace ProyectoDatos
                 int cant = (int)cmd.ExecuteScalar();
                 cnn.Close();
                 MessageBox.Show("Cantidad: " + cant,  " Categorías " + tipo );
+            }
+            else
+                MessageBox.Show("Seleccione tipo");
+        }
+
+        private void button2_Click(object sender, RoutedEventArgs e)
+        {
+            string cad = "Select UnitsInStock from Products WHERE ProductID = ";
+
+            if (radioButton1.IsChecked.Value)
+            {
+                tipo = enumTipoConexion.Access;
+                //System.Data.OleDb.OleDbConnection cnn;
+                cnn = new System.Data.OleDb.OleDbConnection();
+                cnn.ConnectionString = Properties.Settings.Default.ccAccessLocal;
+
+                //System.Data.OleDb.OleDbCommand cmd;
+                cmd = new System.Data.OleDb.OleDbCommand();
+            }
+            else
+                if (radioButton2.IsChecked.Value)
+                {
+                    tipo = enumTipoConexion.Sql;
+                    cnn = new System.Data.SqlClient.SqlConnection();
+                    cnn.ConnectionString = Properties.Settings.Default.ccSqlEscritorio;
+
+                    cmd = new System.Data.SqlClient.SqlCommand(); ;
+                }
+            if (tipo != enumTipoConexion.NoAsignado)
+            //            if (cnn != null)
+            {
+                cmd.Connection = cnn;
+                cmd.CommandType = System.Data.CommandType.Text;
+                cmd.CommandText = cad;
+                cmd.CommandText += textBox1.Text;
+
+                cnn.Open();
+                object oAux = cmd.ExecuteScalar();
+                if (oAux != null)
+                {
+                    short stock = (short)cmd.ExecuteScalar();
+                    cnn.Close();
+                    MessageBox.Show("Stock: " + stock, " Productos " + tipo);
+                }
+                else
+                {
+                    cnn.Close();
+                    MessageBox.Show("Producto no encontrado", " Productos " + tipo);
+                }
+            }
+            else
+                MessageBox.Show("Seleccione tipo");
+        }
+
+        private void button3_Click(object sender, RoutedEventArgs e)
+        {
+            string cad = "Select UnitsInStock from Products WHERE ProductID = ";
+
+            if (radioButton1.IsChecked.Value)
+            {
+                tipo = enumTipoConexion.Access;
+                //System.Data.OleDb.OleDbConnection cnn;
+                cnn = new System.Data.OleDb.OleDbConnection();
+                cnn.ConnectionString = Properties.Settings.Default.ccAccessLocal;
+
+                //System.Data.OleDb.OleDbCommand cmd;
+                cmd = new System.Data.OleDb.OleDbCommand();
+                cad += "?";
+                //Creo e instancio con valor y luego añado
+                //OleDbParameter param = new OleDbParameter("Id", textBox2.Text);
+                //cmd.Parameters.Add(param );
+                //Añado directamente la instanciacion
+                //cmd.Parameters.Add(new OleDbParameter("Id", textBox2.Text));
+                //Creo e instancio con tipo y luego lo añado
+                //OleDbParameter param = new OleDbParameter("Id", OleDbType.SmallInt);
+                //cmd.Parameters.Add(param);
+                //param.Value = textBox2.Text;
+                //Añadir con AddWithValue
+                ((OleDbCommand )cmd).Parameters.AddWithValue("Id", textBox2.Text);
+            }
+            else
+                if (radioButton2.IsChecked.Value)
+                {
+                    tipo = enumTipoConexion.Sql;
+                    cnn = new System.Data.SqlClient.SqlConnection();
+                    cnn.ConnectionString = Properties.Settings.Default.ccSqlEscritorio;
+
+                    cmd = new System.Data.SqlClient.SqlCommand(); 
+                    cad += "@Id";
+                    //Creo e instancio con valor y luego lo añado
+                    //SqlParameter param = new SqlParameter("@Id", textBox2.Text);
+                    //cmd.Parameters.Add(param);
+                    //Añado directamente la instanciación
+                    //cmd.Parameters.Add(new SqlParameter("@Id", textBox2.Text));
+                    //Creo e instancio con valor y luego lo añado
+                    //SqlParameter param = new SqlParameter("@Id", System.Data.SqlDbType.SmallInt);
+                    //cmd.Parameters.Add(param);
+                    //param.Value = textBox2.Text;
+                    //Añadir con AddWithValue
+                    ((SqlCommand)cmd).Parameters.AddWithValue("@Id", textBox2.Text);
+                }
+            if (tipo != enumTipoConexion.NoAsignado)
+            //            if (cnn != null)
+            {
+                cmd.Connection = cnn;
+                cmd.CommandType = System.Data.CommandType.Text;
+                cmd.CommandText = cad;
+
+                cnn.Open();
+                object oAux = cmd.ExecuteScalar();
+                if (oAux != null)
+                {
+                    short stock = (short)cmd.ExecuteScalar();
+                    cnn.Close();
+                    MessageBox.Show("Stock: " + stock, " Productos " + tipo);
+                }
+                else
+                {
+                    cnn.Close();
+                    MessageBox.Show("Producto no encontrado", " Productos " + tipo);
+                }
+            }
+            else
+                MessageBox.Show("Seleccione tipo");
+        }
+
+        private void button4_Click(object sender, RoutedEventArgs e)
+        {
+            string paramId, paramStock;
+
+            if (radioButton1.IsChecked.Value)
+            {
+                tipo = enumTipoConexion.Access;
+                cnn = new System.Data.OleDb.OleDbConnection();
+                cnn.ConnectionString = Properties.Settings.Default.ccAccessLocal;
+
+                cmd = new System.Data.OleDb.OleDbCommand();
+                //Añadir con AddWithValue
+                ((OleDbCommand)cmd).Parameters.AddWithValue("Stock", textBox4.Text);
+                ((OleDbCommand)cmd).Parameters.AddWithValue("Id", textBox3.Text);
+            }
+            else
+                if (radioButton2.IsChecked.Value)
+                {
+                    tipo = enumTipoConexion.Sql;
+                    cnn = new System.Data.SqlClient.SqlConnection();
+                    cnn.ConnectionString = Properties.Settings.Default.ccSqlEscritorio;
+
+                    cmd = new System.Data.SqlClient.SqlCommand();
+                    //Añadir con AddWithValue
+                    ((SqlCommand)cmd).Parameters.AddWithValue("@Stock", textBox4.Text);
+                    ((SqlCommand)cmd).Parameters.AddWithValue("@Id", textBox3.Text);
+                }
+            if (tipo != enumTipoConexion.NoAsignado)
+            //            if (cnn != null)
+            {
+                string cad = "Update Products Set UnitsInStock = " + cmd.Parameters[0].ParameterName  +
+                    " WHERE ProductID = " + cmd.Parameters[1].ParameterName;
+
+                cmd.Connection = cnn;
+                cmd.CommandType = System.Data.CommandType.Text;
+                cmd.CommandText = cad;
+
+                cnn.Open();
+                int cant = cmd.ExecuteNonQuery();
+                if (cant != 0)
+                {
+                    //short stock = (short)cmd.ExecuteScalar();
+                    cnn.Close();
+                    MessageBox.Show("Stock actualizado ", " Productos " + tipo);
+                }
+                else
+                {
+                    cnn.Close();
+                    MessageBox.Show("Producto no encontrado", " Productos " + tipo);
+                }
             }
             else
                 MessageBox.Show("Seleccione tipo");
