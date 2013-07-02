@@ -175,7 +175,7 @@ namespace ProyectoDatos
                 object oAux = cmd.ExecuteScalar();
                 if (oAux != null)
                 {
-                    short stock = (short)cmd.ExecuteScalar();
+                    short stock = (short)oAux ;
                     cnn.Close();
                     MessageBox.Show("Stock: " + stock, " Productos " + tipo);
                 }
@@ -238,6 +238,60 @@ namespace ProyectoDatos
                 {
                     cnn.Close();
                     MessageBox.Show("Producto no encontrado", " Productos " + tipo);
+                }
+            }
+            else
+                MessageBox.Show("Seleccione tipo");
+        }
+
+        private void button5_Click(object sender, RoutedEventArgs e)
+        {
+            string cad = "Select * from Products WHERE CategoryID = ";
+
+            if (radioButton1.IsChecked.Value)
+            {
+                tipo = enumTipoConexion.Access;
+                //System.Data.OleDb.OleDbConnection cnn;
+                cnn = new System.Data.OleDb.OleDbConnection();
+                cnn.ConnectionString = Properties.Settings.Default.ccAccessLocal;
+
+                //System.Data.OleDb.OleDbCommand cmd;
+                cmd = new System.Data.OleDb.OleDbCommand();
+                cad += "?";
+                //Añadir con AddWithValue
+                ((OleDbCommand)cmd).Parameters.AddWithValue("IdCat", textBox5.Text);
+            }
+            else
+                if (radioButton2.IsChecked.Value)
+                {
+                    tipo = enumTipoConexion.Sql;
+                    cnn = new System.Data.SqlClient.SqlConnection();
+                    cnn.ConnectionString = Properties.Settings.Default.ccSqlEscritorio;
+
+                    cmd = new System.Data.SqlClient.SqlCommand();
+                    cad += "@IdCat";
+                    //Añadir con AddWithValue
+                    ((SqlCommand)cmd).Parameters.AddWithValue("@IdCat", textBox5.Text);
+                }
+            if (tipo != enumTipoConexion.NoAsignado)
+            //            if (cnn != null)
+            {
+                cmd.Connection = cnn;
+                //cmd.CommandType = System.Data.CommandType.Text;
+                cmd.CommandText = cad;
+
+                
+                cnn.Open();
+                System.Data.Common.DbDataReader dr = cmd.ExecuteReader();
+
+                if (dr.HasRows )
+                {
+                    //Leer datos....
+                }
+                else
+                {
+                    cnn.Close();
+                    MessageBox.Show("No hay Productos de esta categoría.", " Productos " + tipo);
                 }
             }
             else
