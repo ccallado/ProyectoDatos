@@ -1,0 +1,10 @@
+﻿<Window x:Class="ProyectoDatos.V02_Conectado"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="V02_Conectado" Height="300" Width="300">
+    <Grid>
+        <RadioButton Content="Access" Height="16" HorizontalAlignment="Left" Margin="10,10,0,0" Name="radioButton1" VerticalAlignment="Top" />
+        <RadioButton Content="Sql" Height="16" HorizontalAlignment="Left" Margin="77,12,0,0" Name="radioButton2" VerticalAlignment="Top" />
+        <Button Content="Cantidad Categorías" Height="23" HorizontalAlignment="Left" Margin="10,32,0,0" Name="button1" VerticalAlignment="Top" Width="132" Click="button1_Click" />
+    </Grid>
+</Window>

@@ -23,5 +23,17 @@ namespace ProyectoDatos
         {
             InitializeComponent();
         }
+
+        private void button1_Click(object sender, RoutedEventArgs e)
+        {
+            Window v = new V01_Conexiones();
+            v.Show();
+        }
+
+        private void button2_Click(object sender, RoutedEventArgs e)
+        {
+            Window v = new V02_Conectado();
+            v.Show();
+        }
     }
 }
