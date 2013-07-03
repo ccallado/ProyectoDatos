@@ -287,6 +287,22 @@ namespace ProyectoDatos
                 if (dr.HasRows )
                 {
                     //Leer datos....
+                    string cad2 = "ProductID\tProductName\tUnitPrice\tUnitsInStock";
+
+                    while (dr.Read())
+                    {
+                        //Busca la posición del campo, busca el tipo de dato, Saca el valor (más cómodo)
+                        //cad2 += "\n" + dr["ProductID"].ToString();
+                        //Busca el tipo de dato, Saca el valor
+                        cad2 += "\n" + dr[0].ToString();
+                        //Saca el valor (más rápido)
+                        //cad2 += "\t" + dr.GetInt32(0).ToString();
+                        cad2 += "\t" + dr[1].ToString();
+                        cad2 += "\t" + dr[5].ToString();
+                        cad2 += "\t" + dr[6].ToString();
+
+                    }
+                    MessageBox.Show(cad2, "Productos de la categoría " + textBox5.Text );
                 }
                 else
                 {
