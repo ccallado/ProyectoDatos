@@ -35,5 +35,11 @@ namespace ProyectoDatos
             Window v = new V02_Conectado();
             v.Show();
         }
+
+        private void button3_Click(object sender, RoutedEventArgs e)
+        {
+            Window v = new V03_Conectado2();
+            v.Show();
+        }
     }
 }

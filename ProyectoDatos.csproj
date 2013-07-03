@@ -55,12 +55,16 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ClaseDatos.cs" />
     <Compile Include="Enumeraciones.cs" />
     <Compile Include="V01_Conexiones.xaml.cs">
       <DependentUpon>V01_Conexiones.xaml</DependentUpon>
     </Compile>
     <Compile Include="V02_Conectado.xaml.cs">
       <DependentUpon>V02_Conectado.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="V03_Conectado2.xaml.cs">
+      <DependentUpon>V03_Conectado2.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -79,6 +83,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="V02_Conectado.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="V03_Conectado2.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
