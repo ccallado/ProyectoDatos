@@ -41,5 +41,11 @@ namespace ProyectoDatos
             Window v = new V03_Conectado2();
             v.Show();
         }
+
+        private void button4_Click(object sender, RoutedEventArgs e)
+        {
+            Window v = new V04_Desconectado1();
+            v.Show();
+        }
     }
 }

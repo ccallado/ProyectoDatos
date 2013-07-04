@@ -54,5 +54,16 @@ namespace ProyectoDatos.Properties {
                 return ((string)(this["ccSqlEscritorio"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=.\\SQLEXPRESS;AttachDbFilename=|DataDirectory|\\Datos\\northwind.mdf;Int" +
+            "egrated Security=True;Connect Timeout=30;User Instance=True")]
+        public string ccSqlLocal {
+            get {
+                return ((string)(this["ccSqlLocal"]));
+            }
+        }
     }
 }
