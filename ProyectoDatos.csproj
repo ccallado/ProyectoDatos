@@ -73,6 +73,10 @@
     </ApplicationDefinition>
     <Compile Include="ClaseDatos.cs" />
     <Compile Include="Enumeraciones.cs" />
+    <Compile Include="NWDataSet.cs">
+      <DependentUpon>NWDataSet.xsd</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="NWDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -89,6 +93,12 @@
     </Compile>
     <Compile Include="V04_Desconectado1.xaml.cs">
       <DependentUpon>V04_Desconectado1.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="V05_Desconectado2.xaml.cs">
+      <DependentUpon>V05_Desconectado2.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="V06_Desconectado3.xaml.cs">
+      <DependentUpon>V06_Desconectado3.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -115,6 +125,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="V04_Desconectado1.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="V05_Desconectado2.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="V06_Desconectado3.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -47,5 +47,19 @@ namespace ProyectoDatos
             Window v = new V04_Desconectado1();
             v.Show();
         }
+
+        private void button5_Click(object sender, RoutedEventArgs e)
+        {
+            //DataGrid, todo gráficamente
+            Window v = new V05_Desconectado2();
+            v.Show();
+        }
+
+        private void button6_Click(object sender, RoutedEventArgs e)
+        {
+            //Maestro Detalle, casi todo gráficamente
+            Window v = new V06_Desconectado3();
+            v.Show();
+        }
     }
 }
