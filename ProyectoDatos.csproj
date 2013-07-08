@@ -108,6 +108,9 @@
     <Compile Include="V08_LINQ2.xaml.cs">
       <DependentUpon>V08_LINQ2.xaml</DependentUpon>
     </Compile>
+    <Compile Include="V09_LINQ3.xaml.cs">
+      <DependentUpon>V09_LINQ3.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -149,6 +152,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="V08_LINQ2.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="V09_LINQ3.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

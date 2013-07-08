@@ -11,5 +11,6 @@
         <Button Content="Desconectado3" Height="23" HorizontalAlignment="Left" Margin="10,155,0,0" Name="button6" VerticalAlignment="Top" Width="179" Click="button6_Click" />
         <Button Content="LINQ1" Height="23" HorizontalAlignment="Left" Margin="10,184,0,0" Name="button7" VerticalAlignment="Top" Width="179" Click="button7_Click" />
         <Button Content="LINQ2" Height="23" HorizontalAlignment="Left" Margin="10,213,0,0" Name="button8" VerticalAlignment="Top" Width="179" Click="button8_Click" />
+        <Button Content="LINQ3" Height="23" HorizontalAlignment="Left" Margin="10,242,0,0" Name="button9" VerticalAlignment="Top" Width="179" Click="button9_Click" />
     </Grid>
 </Window>
