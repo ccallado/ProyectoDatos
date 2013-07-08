@@ -9,5 +9,7 @@
         <Button Content="Desconectado1" Height="23" HorizontalAlignment="Left" Margin="10,97,0,0" Name="button4" VerticalAlignment="Top" Width="179" Click="button4_Click" />
         <Button Content="Desconectado2" Height="23" HorizontalAlignment="Left" Margin="10,126,0,0" Name="button5" VerticalAlignment="Top" Width="179" Click="button5_Click" />
         <Button Content="Desconectado3" Height="23" HorizontalAlignment="Left" Margin="10,155,0,0" Name="button6" VerticalAlignment="Top" Width="179" Click="button6_Click" />
+        <Button Content="LINQ1" Height="23" HorizontalAlignment="Left" Margin="10,184,0,0" Name="button7" VerticalAlignment="Top" Width="179" Click="button7_Click" />
+        <Button Content="LINQ2" Height="23" HorizontalAlignment="Left" Margin="10,213,0,0" Name="button8" VerticalAlignment="Top" Width="179" Click="button8_Click" />
     </Grid>
 </Window>

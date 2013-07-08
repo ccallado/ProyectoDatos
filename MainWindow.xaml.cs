@@ -61,5 +61,18 @@ namespace ProyectoDatos
             Window v = new V06_Desconectado3();
             v.Show();
         }
+
+        private void button7_Click(object sender, RoutedEventArgs e)
+        {
+            //Maestro Detalle, casi todo gráficamente
+            Window v = new V07_LINQ1();
+            v.Show();
+        }
+
+        private void button8_Click(object sender, RoutedEventArgs e)
+        {
+            Window v = new V08_LINQ2();
+            v.Show();
+        }
     }
 }

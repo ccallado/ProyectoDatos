@@ -72,6 +72,8 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="ClaseDatos.cs" />
+    <Compile Include="ClaseExtensiones.cs" />
+    <Compile Include="Cliente.cs" />
     <Compile Include="Enumeraciones.cs" />
     <Compile Include="NWDataSet.cs">
       <DependentUpon>NWDataSet.xsd</DependentUpon>
@@ -99,6 +101,12 @@
     </Compile>
     <Compile Include="V06_Desconectado3.xaml.cs">
       <DependentUpon>V06_Desconectado3.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="V07_LINQ1.xaml.cs">
+      <DependentUpon>V07_LINQ1.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="V08_LINQ2.xaml.cs">
+      <DependentUpon>V08_LINQ2.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -133,6 +141,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="V06_Desconectado3.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="V07_LINQ1.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="V08_LINQ2.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
