@@ -80,5 +80,17 @@ namespace ProyectoDatos
             Window v = new V09_LINQ3();
             v.Show();
         }
+
+        private void button10_Click(object sender, RoutedEventArgs e)
+        {
+            Window v = new V10_LINQ4();
+            v.Show();
+        }
+
+        private void button11_Click(object sender, RoutedEventArgs e)
+        {
+            Window v = new V11_LINQ5();
+            v.Show();
+        }
     }
 }

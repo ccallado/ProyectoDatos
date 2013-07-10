@@ -28,6 +28,10 @@
             taPed = new NWDataSetTableAdapters.OrdersTableAdapter();
             taPed.Fill(ds.Orders);
 
+            NWDataSetTableAdapters.SuppliersTableAdapter taProv;
+            taProv = new NWDataSetTableAdapters.SuppliersTableAdapter();
+            taProv.Fill(ds.Suppliers);
+
             return ds;
         }
 

@@ -73,7 +73,7 @@
     </ApplicationDefinition>
     <Compile Include="ClaseDatos.cs" />
     <Compile Include="ClaseExtensiones.cs" />
-    <Compile Include="Cliente.cs" />
+    <Compile Include="ClasesVarias.cs" />
     <Compile Include="Enumeraciones.cs" />
     <Compile Include="NWDataSet.cs">
       <DependentUpon>NWDataSet.xsd</DependentUpon>
@@ -110,6 +110,12 @@
     </Compile>
     <Compile Include="V09_LINQ3.xaml.cs">
       <DependentUpon>V09_LINQ3.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="V10_LINQ4.xaml.cs">
+      <DependentUpon>V10_LINQ4.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="V11_LINQ5.xaml.cs">
+      <DependentUpon>V11_LINQ5.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -156,6 +162,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="V09_LINQ3.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="V10_LINQ4.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="V11_LINQ5.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
