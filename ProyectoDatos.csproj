@@ -53,6 +53,9 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Transactions" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -83,6 +86,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>NWDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="NWModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>NWModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="V01_Conexiones.xaml.cs">
       <DependentUpon>V01_Conexiones.xaml</DependentUpon>
@@ -116,6 +124,12 @@
     </Compile>
     <Compile Include="V11_LINQ5.xaml.cs">
       <DependentUpon>V11_LINQ5.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="V12_Entity1.xaml.cs">
+      <DependentUpon>V12_Entity1.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="V13_Entity2.xaml.cs">
+      <DependentUpon>V13_Entity2.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -173,6 +187,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="V12_Entity1.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="V13_Entity2.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -204,6 +226,11 @@
     <None Include="NWDataSet.xss">
       <DependentUpon>NWDataSet.xsd</DependentUpon>
     </None>
+    <EntityDeploy Include="NWModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>NWModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Properties\DataSources\northwindEntities.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
