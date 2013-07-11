@@ -33,13 +33,13 @@ namespace ProyectoDatos
             var producto = ds.Products.SingleOrDefault(p => p.ProductID == int.Parse(textBox1.Text));
             if (producto != null)
             {
-//                var prods = ds.Products.Where(p => p.CategoryID == producto.CategoryID).ToList();
+                //                var prods = ds.Products.Where(p => p.CategoryID == producto.CategoryID).ToList();
                 var prods = ds.Products
                     .Where(p => p.CategoryID == producto.CategoryID)
-                    .Select(p => new {p.ProductName, p.UnitsInStock })
+                    .Select(p => new { p.ProductName, p.UnitsInStock })
                     .ToList();
                 cad = "";
-                cad += "Producto: " + 
+                cad += "Producto: " +
                        producto.ProductName + " - " +
                        producto.UnitsInStock + "\n\n";
                 producto.UnitsInStock = 999;
@@ -52,6 +52,80 @@ namespace ProyectoDatos
             }
             else
                 MessageBox.Show("No encontrado");
+        }
+
+        private void button2_Click(object sender, RoutedEventArgs e)
+        {
+            var Productos = ds.Products
+                            .Where(p => p.CategoryID == int.Parse(textBox2.Text))
+                            .ToDictionary(p => p.ProductID);
+
+            cad = "";
+            foreach (var x in Productos)
+            {
+                cad += "Clave: " + x.Key +
+                      "\tProducto: " + x.Value.ProductName + "\n";
+            }
+
+            if (Productos.ContainsKey(1))
+                cad += "\n\nEncontrado el 1";
+            else
+                cad += "\n\nNO Encontrado el 1";
+
+            if (Productos.ContainsKey(8))
+                cad += "\n\nEncontrado el 8";
+            else
+                cad += "\n\nNO Encontrado el 8";
+
+            MessageBox.Show(cad);
+        }
+
+        //Select
+        private void button3_Click(object sender, RoutedEventArgs e)
+        {
+            var pedidos = ds.Orders.Where(c => c.CustomerID == textBox3.Text);
+
+            //Select de líneas de detalle
+            //Obtengo un ARRAY de elementos (No lo puedo asignar a un Grid)
+            var detalles1 = pedidos.Select(p => p.GetOrder_DetailsRows());
+
+            cad = "";
+            foreach (var x in detalles1)
+            {
+                cad += "Detalles: " + x.Count();
+                foreach (var d in x)
+                {
+                    cad += "\n" +
+                           d.OrderID + " - " +
+                           d.ProductID + " " +
+                           d.ProductsRow.ProductName + "\t (unidades: " +
+                           d.Quantity + ")";
+                }
+                cad += "\n\n";
+            }
+
+            MessageBox.Show(cad);
+
+            //SelectMany de líneas de detalle
+            //Obtengo una coleccion (Puedo asignarlo a un Grid)
+            var detalles2 = pedidos.SelectMany(p => p.GetOrder_DetailsRows());
+
+            cad = "";
+            foreach (var x in detalles2)
+            {
+                //                cad += "Detalles: " + x.Count();
+                //                foreach (var d in x)
+                //                {
+                cad += "\n" +
+                       x.OrderID + " - " +
+                       x.ProductID + " " +
+                       x.ProductsRow.ProductName + "\t (unidades: " +
+                       x.Quantity + ")";
+                //                }
+                //                cad += "\n\n";
+            }
+
+            MessageBox.Show(cad);
         }
     }
 }

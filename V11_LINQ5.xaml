@@ -5,5 +5,9 @@
     <Grid>
         <Button Content="ToList" Height="23" HorizontalAlignment="Left" Margin="10,10,0,0" Name="button1" VerticalAlignment="Top" Width="177" Click="button1_Click" />
         <TextBox Height="23" HorizontalAlignment="Right" Margin="0,10,12,0" Name="textBox1" VerticalAlignment="Top" Width="73" />
+        <Button Content="ToDictionary" Height="23" HorizontalAlignment="Left" Margin="10,39,0,0" Name="button2" VerticalAlignment="Top" Width="177" Click="button2_Click" />
+        <TextBox Height="23" HorizontalAlignment="Right" Margin="0,39,12,0" Name="textBox2" VerticalAlignment="Top" Width="73" />
+        <Button Content="SelectMany" Height="23" HorizontalAlignment="Left" Margin="10,68,0,0" Name="button3" VerticalAlignment="Top" Width="177" Click="button3_Click" />
+        <TextBox Height="23" HorizontalAlignment="Right" Margin="0,68,12,0" Name="textBox3" VerticalAlignment="Top" Width="73" Text="ALFKI" />
     </Grid>
 </Window>
