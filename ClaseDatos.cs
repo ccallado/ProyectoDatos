@@ -4,6 +4,7 @@
 //using System.Text;
 
 using System.Data.SqlClient;
+using System.Data.Objects;
 
 namespace ProyectoDatos
 {
@@ -28,6 +29,16 @@ namespace ProyectoDatos
         {
             SqlConnection cnn = CreaConexionSql(cadenaConexion);
             return cnn.CreateCommand();
+        }
+
+        public static ObjectQuery<Order> PedidosEntreFechas(ObjectContext contexto)
+        { 
+            string cad = "SELECT VALUE pedidos FROM " + contexto.DefaultContainerName +".Orders as pedidos " +
+                         "WHERE pedidos.OrderDate >= @fchini AND pedidos.OrderDate <= @fchfin";
+            ObjectQuery<Order> consulta = new ObjectQuery<Order>(cad, contexto);
+            consulta.Parameters.Add(new ObjectParameter("fchini", typeof(DateTime)));
+            consulta.Parameters.Add(new ObjectParameter("fchfin", typeof(DateTime)));
+            return consulta;
         }
     }
 }

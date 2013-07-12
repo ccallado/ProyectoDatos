@@ -131,6 +131,9 @@
     <Compile Include="V13_Entity2.xaml.cs">
       <DependentUpon>V13_Entity2.xaml</DependentUpon>
     </Compile>
+    <Compile Include="V14_Entity3.xaml.cs">
+      <DependentUpon>V14_Entity3.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -192,6 +195,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="V13_Entity2.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="V14_Entity3.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

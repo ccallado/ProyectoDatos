@@ -21,6 +21,13 @@ namespace ProyectoDatos
         public V13_Entity2()
         {
             InitializeComponent();
+
+            //Fecha del pedido 1
+            using (northwindEntities ne = new northwindEntities())
+            {
+                datePicker1.SelectedDate = ne.Orders.First().OrderDate;
+                datePicker2.SelectedDate = datePicker1.SelectedDate.Value.AddMonths(1);
+            }
         }
 
         //Entity SQL
@@ -31,6 +38,10 @@ namespace ProyectoDatos
 
             //Esto se define de nuestro modelo no de la base de datos
             //No puedo utilizar "*" se utiliza "VALUE"
+            
+            //Es lo mismo que pone cno SELECT VALUE
+            //cadena = "northwindEntities.Categorias";
+
             cadena = "SELECT VALUE ListaCategorias " +
                      "FROM northwindEntities.Categorias AS ListaCategorias";
 
@@ -111,6 +122,198 @@ namespace ProyectoDatos
                         }
                         MessageBox.Show(desc);
                 }
+            }
+        }
+
+        //Parámetros
+        private void button3_Click(object sender, RoutedEventArgs e)
+        {
+            string cadena = "SELECT VALUE productos FROM northwindEntities.Productos as productos " +
+                            "WHERE productos.CategoryID = @cat";
+            using (northwindEntities ne = new northwindEntities())
+            {
+                System.Data.Objects.ObjectQuery<Producto> consulta;
+                consulta = new System.Data.Objects.ObjectQuery<Producto>(cadena, ne, System.Data.Objects.MergeOption.NoTracking);
+                //Añadir el parámetro
+                consulta.Parameters.Add(
+                    //Caja de texto1
+                    new System.Data.Objects.ObjectParameter("cat", int.Parse(textBox1.Text))
+                    );
+
+                //Compruebo el resultado
+                string cad = "";
+                foreach (var x in consulta)
+                {
+                    cad += x.ProductID + " - " +
+                           x.ProductName + " (" +
+                           x.Categoria.CategoryName + ")\n";
+                }
+
+                MessageBox.Show(cad, "Productos de la categoría " + consulta.Parameters["cat"].Value);
+            }
+
+        }
+
+        //Pedidos entre fechas
+        private void button4_Click(object sender, RoutedEventArgs e)
+        {
+            using (northwindEntities ne = new northwindEntities())
+            {
+                var consulta = ClaseDatos.PedidosEntreFechas(ne);
+                consulta.Parameters["fchini"].Value = datePicker1.SelectedDate.Value;
+                consulta.Parameters["fchfin"].Value = datePicker2.SelectedDate.Value;
+
+                string cad = "";
+
+                foreach (var x in consulta)
+                {
+                    cad += x.OrderID + " - " +
+                           x.CustomerID + " - " +
+                           x.OrderDate.Value.ToShortDateString() + "\n";
+                }
+                MessageBox.Show(cad);
+            }
+        }
+
+        //Info Pedidos entre fechas (CON carga diferida)
+        private void button5_Click(object sender, RoutedEventArgs e)
+        {
+            using (northwindEntities ne = new northwindEntities())
+            {
+                var consulta = ClaseDatos.PedidosEntreFechas(ne);
+                consulta.Parameters["fchini"].Value = datePicker1.SelectedDate.Value;
+                consulta.Parameters["fchfin"].Value = datePicker2.SelectedDate.Value;
+
+                string cad = "";
+
+                foreach (var x in consulta)
+                {
+                    cad += 
+                        //aprovechando las propiedades de navegación
+                        //Esto carga mucho la máquina. Tener cuidado al usarlo.
+                           x.OrderDate.Value.ToShortDateString()+ "  " +
+                           x.OrderID + " - " + 
+                           x.Customer.CompanyName + " (" +
+                           x.Employee.FirstName + " " +
+                           x.Employee.LastName + ") Lineas de detalle: " +
+                           x.Order_Details.Count() + "\n";
+                }
+                MessageBox.Show(cad);
+            }
+        }
+
+        //Info Pedidos entre fechas (SIN carga diferida)
+        private void button6_Click(object sender, RoutedEventArgs e)
+        {
+            using (northwindEntities ne = new northwindEntities())
+            {
+                //SIN carga diferida
+                ne.ContextOptions.LazyLoadingEnabled = false;
+
+                var empleados = ne.Employees.Where(emp => emp.FirstName.StartsWith("M")).ToList();
+
+                var consulta = ClaseDatos.PedidosEntreFechas(ne);
+                consulta.Parameters["fchini"].Value = datePicker1.SelectedDate.Value;
+                consulta.Parameters["fchfin"].Value = datePicker2.SelectedDate.Value;
+
+                string cad = "";
+
+                foreach (var x in consulta)
+                {
+                    cad +=
+                        //aprovechando las propiedades de navegación
+                        //Esto carga mucho la máquina. Tener cuidado al usarlo.
+                           x.OrderDate.Value.ToShortDateString() + "  " +
+                           x.OrderID + " - " +
+                           //x.Customer.CompanyName + " (" +
+                           (x.Employee != null ?
+                           x.Employee.FirstName + " " +
+                           x.Employee.LastName : 
+                           //") Lineas de detalle: " 
+                           "") +
+                           //x.Order_Details.Count() + 
+                           "\n";
+                }
+                MessageBox.Show(cad);
+            }
+        }
+
+        //Info Pedidos entre fechas (CON Includes)
+        private void button7_Click(object sender, RoutedEventArgs e)
+        {
+            using (northwindEntities ne = new northwindEntities())
+            {
+                //SIN carga diferida
+                ne.ContextOptions.LazyLoadingEnabled = false;
+
+                //Forzamos las propiedades de navegación con Include
+                var consulta = ClaseDatos.PedidosEntreFechas(ne)
+                             .Include("Customer")
+                             .Include("Employee")
+                             .Include("Order_Details");
+
+                consulta.Parameters["fchini"].Value = datePicker1.SelectedDate.Value;
+                consulta.Parameters["fchfin"].Value = datePicker2.SelectedDate.Value;
+
+                string cad = "";
+
+                foreach (var x in consulta)
+                {
+                    cad +=
+                        //aprovechando las propiedades de navegación
+                        //Esto carga mucho la máquina. Tener cuidado al usarlo.
+                           x.OrderDate.Value.ToShortDateString() + "  " +
+                           x.OrderID + " - " +
+                           x.Customer.CompanyName + " (" +
+                           x.Employee.FirstName + " " +
+                           x.Employee.LastName + ") Lineas de detalle: " +
+                           x.Order_Details.Count() + "\n";
+                }
+                MessageBox.Show(cad);
+            }
+        }
+
+        //Con LoadProperty
+        private void button8_Click(object sender, RoutedEventArgs e)
+        {
+            using (northwindEntities ne = new northwindEntities())
+            {
+                var consulta = ClaseDatos.PedidosEntreFechas(ne);
+
+                //SIN carga diferida
+                ne.ContextOptions.LazyLoadingEnabled = false;
+
+
+                consulta.Parameters["fchini"].Value = datePicker1.SelectedDate.Value;
+                consulta.Parameters["fchfin"].Value = datePicker2.SelectedDate.Value;
+
+                string cad = "";
+
+                foreach (var x in consulta)
+                {
+                    //Forzamos las propiedades de navegación con Include
+                    if (x.ShipCountry.StartsWith("F") ||
+                        x.ShipCountry.StartsWith("S"))
+                    {
+                        ne.LoadProperty(x, "Customer");
+                        ne.LoadProperty(x, "Employee");
+                        ne.LoadProperty(x, "Order_Details");
+                    }
+
+                    cad +=
+                        //aprovechando las propiedades de navegación
+                        //Esto carga mucho la máquina. Tener cuidado al usarlo.
+                           x.OrderDate.Value.ToShortDateString() + "  " +
+                           x.OrderID + " - " +
+                           (x.Customer != null ? x.Customer.CompanyName : "Sin nombre")
+                           + " (" +
+                           (x.Employee != null ? x.Employee.FirstName + " " + x.Employee.LastName : "Sin empleado") 
+                           + ") Lineas de detalle: " +
+                           //x.ShipCountry + " - " +
+                           (x.Order_Details.Count() != 0 ? x.Order_Details.Count().ToString() : "Sin detalle") 
+                           + "\n";
+                }
+                MessageBox.Show(cad);
             }
         }
     }
