@@ -261,6 +261,27 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="SPCategoriaYProductos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Cat" Type="int" Mode="In" />
+          <Parameter Name="Nombre" Type="nvarchar" Mode="InOut" />
+          <Parameter Name="Productos" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="SPInfoCategoria" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Cat" Type="int" Mode="In" />
+          <Parameter Name="Nombre" Type="nvarchar" Mode="InOut" />
+          <Parameter Name="Productos" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="SPNombreCategoria" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Cat" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SPProductosPorCategoria" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Cat" Type="int" Mode="In" />
+          <Parameter Name="Nombre" Type="nvarchar" Mode="InOut" />
+          <Parameter Name="Productos" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="SPVentasPorCategoria" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Cat" Type="int" Mode="In" />
+        </Function>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -306,6 +327,22 @@
             <End Role="Supplier" EntitySet="Suppliers" />
             <End Role="Producto" EntitySet="Productos" />
           </AssociationSet>
+          <FunctionImport Name="funSPNombreCategoria" ReturnType="Collection(String)">
+          <Parameter Name="Cat" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="funSPInfoCategoria" EntitySet="Categorias" ReturnType="Collection(northwindModel.Categoria)">
+            <Parameter Name="Cat" Mode="In" Type="Int32" />
+            <Parameter Name="Nombre" Mode="InOut" Type="String" />
+            <Parameter Name="Productos" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="funSPProductosPorCategoria" EntitySet="Productos" ReturnType="Collection(northwindModel.Producto)">
+            <Parameter Name="Cat" Mode="In" Type="Int32" />
+            <Parameter Name="Nombre" Mode="InOut" Type="String" />
+            <Parameter Name="Productos" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="funSPVentasPorCategoria" ReturnType="Collection(northwindModel.funSPVentasPorCategoria_Result)">
+            <Parameter Name="Cat" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <EntityType Name="Categoria">
           <Key>
@@ -537,6 +574,10 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <ComplexType Name="funSPVentasPorCategoria_Result">
+          <Property Type="String" Name="ProductName" Nullable="false" MaxLength="40" />
+          <Property Type="Int32" Name="Cantidad" Nullable="true" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -668,6 +709,17 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="funSPNombreCategoria" FunctionName="northwindModel.Store.SPNombreCategoria" />
+          <FunctionImportMapping FunctionImportName="funSPInfoCategoria" FunctionName="northwindModel.Store.SPInfoCategoria" />
+          <FunctionImportMapping FunctionImportName="funSPProductosPorCategoria" FunctionName="northwindModel.Store.SPProductosPorCategoria" />
+          <FunctionImportMapping FunctionImportName="funSPVentasPorCategoria" FunctionName="northwindModel.Store.SPVentasPorCategoria">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="northwindModel.funSPVentasPorCategoria_Result">
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+                <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

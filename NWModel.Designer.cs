@@ -276,6 +276,132 @@ namespace ProyectoDatos
 
         #endregion
 
+        #region Importaciones de funciones
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        /// <param name="cat">No hay documentación de metadatos disponible.</param>
+        public ObjectResult<global::System.String> funSPNombreCategoria(Nullable<global::System.Int32> cat)
+        {
+            ObjectParameter catParameter;
+            if (cat.HasValue)
+            {
+                catParameter = new ObjectParameter("Cat", cat);
+            }
+            else
+            {
+                catParameter = new ObjectParameter("Cat", typeof(global::System.Int32));
+            }
+    
+            return base.ExecuteFunction<global::System.String>("funSPNombreCategoria", catParameter);
+        }
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        /// <param name="cat">No hay documentación de metadatos disponible.</param>
+        /// <param name="nombre">No hay documentación de metadatos disponible.</param>
+        /// <param name="productos">No hay documentación de metadatos disponible.</param>
+        public ObjectResult<Categoria> funSPInfoCategoria(Nullable<global::System.Int32> cat, ObjectParameter nombre, ObjectParameter productos)
+        {
+            ObjectParameter catParameter;
+            if (cat.HasValue)
+            {
+                catParameter = new ObjectParameter("Cat", cat);
+            }
+            else
+            {
+                catParameter = new ObjectParameter("Cat", typeof(global::System.Int32));
+            }
+    
+            return base.ExecuteFunction<Categoria>("funSPInfoCategoria", catParameter, nombre, productos);
+        }
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        /// <param name="mergeOption"></param>
+        /// <param name="cat">No hay documentación de metadatos disponible.</param>
+        /// <param name="nombre">No hay documentación de metadatos disponible.</param>
+        /// <param name="productos">No hay documentación de metadatos disponible.</param>
+        public ObjectResult<Categoria> funSPInfoCategoria(Nullable<global::System.Int32> cat, ObjectParameter nombre, ObjectParameter productos, MergeOption mergeOption)
+        {
+            ObjectParameter catParameter;
+            if (cat.HasValue)
+            {
+                catParameter = new ObjectParameter("Cat", cat);
+            }
+            else
+            {
+                catParameter = new ObjectParameter("Cat", typeof(global::System.Int32));
+            }
+    
+            return base.ExecuteFunction<Categoria>("funSPInfoCategoria", mergeOption, catParameter, nombre, productos);
+        }
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        /// <param name="cat">No hay documentación de metadatos disponible.</param>
+        /// <param name="nombre">No hay documentación de metadatos disponible.</param>
+        /// <param name="productos">No hay documentación de metadatos disponible.</param>
+        public ObjectResult<Producto> funSPProductosPorCategoria(Nullable<global::System.Int32> cat, ObjectParameter nombre, ObjectParameter productos)
+        {
+            ObjectParameter catParameter;
+            if (cat.HasValue)
+            {
+                catParameter = new ObjectParameter("Cat", cat);
+            }
+            else
+            {
+                catParameter = new ObjectParameter("Cat", typeof(global::System.Int32));
+            }
+    
+            return base.ExecuteFunction<Producto>("funSPProductosPorCategoria", catParameter, nombre, productos);
+        }
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        /// <param name="mergeOption"></param>
+        /// <param name="cat">No hay documentación de metadatos disponible.</param>
+        /// <param name="nombre">No hay documentación de metadatos disponible.</param>
+        /// <param name="productos">No hay documentación de metadatos disponible.</param>
+        public ObjectResult<Producto> funSPProductosPorCategoria(Nullable<global::System.Int32> cat, ObjectParameter nombre, ObjectParameter productos, MergeOption mergeOption)
+        {
+            ObjectParameter catParameter;
+            if (cat.HasValue)
+            {
+                catParameter = new ObjectParameter("Cat", cat);
+            }
+            else
+            {
+                catParameter = new ObjectParameter("Cat", typeof(global::System.Int32));
+            }
+    
+            return base.ExecuteFunction<Producto>("funSPProductosPorCategoria", mergeOption, catParameter, nombre, productos);
+        }
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        /// <param name="cat">No hay documentación de metadatos disponible.</param>
+        public ObjectResult<funSPVentasPorCategoria_Result> funSPVentasPorCategoria(Nullable<global::System.Int32> cat)
+        {
+            ObjectParameter catParameter;
+            if (cat.HasValue)
+            {
+                catParameter = new ObjectParameter("Cat", cat);
+            }
+            else
+            {
+                catParameter = new ObjectParameter("Cat", typeof(global::System.Int32));
+            }
+    
+            return base.ExecuteFunction<funSPVentasPorCategoria_Result>("funSPVentasPorCategoria", catParameter);
+        }
+
+        #endregion
+
     }
 
     #endregion
@@ -2928,6 +3054,87 @@ namespace ProyectoDatos
                 }
             }
         }
+
+        #endregion
+
+    }
+
+    #endregion
+
+    #region ComplexTypes
+    
+    /// <summary>
+    /// No hay documentación de metadatos disponible.
+    /// </summary>
+    [EdmComplexTypeAttribute(NamespaceName="northwindModel", Name="funSPVentasPorCategoria_Result")]
+    [DataContractAttribute(IsReference=true)]
+    [Serializable()]
+    public partial class funSPVentasPorCategoria_Result : ComplexObject
+    {
+        #region Método de generador
+    
+        /// <summary>
+        /// Crear un nuevo objeto funSPVentasPorCategoria_Result.
+        /// </summary>
+        /// <param name="productName">Valor inicial de la propiedad ProductName.</param>
+        public static funSPVentasPorCategoria_Result CreatefunSPVentasPorCategoria_Result(global::System.String productName)
+        {
+            funSPVentasPorCategoria_Result funSPVentasPorCategoria_Result = new funSPVentasPorCategoria_Result();
+            funSPVentasPorCategoria_Result.ProductName = productName;
+            return funSPVentasPorCategoria_Result;
+        }
+
+        #endregion
+
+        #region Propiedades primitivas
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String ProductName
+        {
+            get
+            {
+                return _ProductName;
+            }
+            set
+            {
+                OnProductNameChanging(value);
+                ReportPropertyChanging("ProductName");
+                _ProductName = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("ProductName");
+                OnProductNameChanged();
+            }
+        }
+        private global::System.String _ProductName;
+        partial void OnProductNameChanging(global::System.String value);
+        partial void OnProductNameChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> Cantidad
+        {
+            get
+            {
+                return _Cantidad;
+            }
+            set
+            {
+                OnCantidadChanging(value);
+                ReportPropertyChanging("Cantidad");
+                _Cantidad = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Cantidad");
+                OnCantidadChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _Cantidad;
+        partial void OnCantidadChanging(Nullable<global::System.Int32> value);
+        partial void OnCantidadChanged();
 
         #endregion
 
