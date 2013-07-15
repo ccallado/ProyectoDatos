@@ -72,6 +72,7 @@ namespace ProyectoDatos
             //daría la excepción en este caso con TryGet..... no da excepción lo pone a null
             //northwindEntities.TryGetObjectByKey(pr.EntityKey, out opr);
             // Otra forma
+            // Debe estar completamente cualificado debe llevar northwindEntities.Productos
             System.Data.EntityKey clave =
                 new System.Data.EntityKey("northwindEntities.Productos", "ProductID", pr.ProductID);
             northwindEntities.TryGetObjectByKey(clave, out opr);
