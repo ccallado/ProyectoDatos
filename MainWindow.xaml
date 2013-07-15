@@ -18,5 +18,6 @@
         <Button Content="Entity2" Height="23" HorizontalAlignment="Left" Margin="10,357,0,0" Name="button13" VerticalAlignment="Top" Width="179" Click="button13_Click" />
         <Button Content="Entity Client" Height="23" HorizontalAlignment="Left" Margin="10,386,0,0" Name="button14" VerticalAlignment="Top" Width="179" Click="button14_Click" />
         <Button Content="Procedimientos Almacenados" Height="23" HorizontalAlignment="Left" Margin="10,415,0,0" Name="button15" VerticalAlignment="Top" Width="179" Click="button15_Click" />
+        <Button Content="Actualizaciones" Height="23" HorizontalAlignment="Left" Margin="10,444,0,0" Name="button16" VerticalAlignment="Top" Width="179" Click="button16_Click" />
     </Grid>
 </Window>
