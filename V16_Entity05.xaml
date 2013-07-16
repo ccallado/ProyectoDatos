@@ -1,12 +1,12 @@
 ﻿<Window x:Class="ProyectoDatos.V16_Entity05"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Actualizaciones" Height="300" Width="505" mc:Ignorable="d" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:my="clr-namespace:ProyectoDatos" Loaded="Window_Loaded">
+        Title="Actualizaciones" Height="327" Width="846" mc:Ignorable="d" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:my="clr-namespace:ProyectoDatos">
     <Window.Resources>
         <CollectionViewSource x:Key="productosViewSource" d:DesignSource="{d:DesignInstance my:Producto, CreateList=True}" />
     </Window.Resources>
     <Grid DataContext="{StaticResource productosViewSource}">
-        <DataGrid AutoGenerateColumns="False" EnableRowVirtualization="True" Height="170" ItemsSource="{Binding}" Margin="12,41,12,0" Name="productosDataGrid" RowDetailsVisibilityMode="VisibleWhenSelected" VerticalAlignment="Top" SelectionChanged="productosDataGrid_SelectionChanged">
+        <DataGrid AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="12,42,12,109" Name="productosDataGrid" RowDetailsVisibilityMode="VisibleWhenSelected" SelectionChanged="productosDataGrid_SelectionChanged">
             <DataGrid.Columns>
                 <DataGridTextColumn x:Name="productIDColumn" Binding="{Binding Path=ProductID}" Header="Product ID" Width="SizeToHeader" />
                 <DataGridTextColumn x:Name="productNameColumn" Binding="{Binding Path=ProductName}" Header="Product Name" Width="SizeToHeader" />
@@ -20,10 +20,13 @@
                 <DataGridCheckBoxColumn x:Name="discontinuedColumn" Binding="{Binding Path=Discontinued}" Header="Discontinued" Width="SizeToHeader" />
             </DataGrid.Columns>
         </DataGrid>
-        <Button Content="Categoría" Height="23" HorizontalAlignment="Left" Margin="140,12,0,0" Name="button1" VerticalAlignment="Top" Width="142" Click="button1_Click" />
-        <TextBox Height="23" HorizontalAlignment="Left" Margin="12,12,0,0" Name="textBox1" VerticalAlignment="Top" Width="120" />
-        <TextBox Height="23" HorizontalAlignment="Left" Margin="12,217,0,0" Name="textBox2" VerticalAlignment="Top" Width="181" />
-        <TextBox Height="23" HorizontalAlignment="Left" Margin="199,217,0,0" Name="textBox3" VerticalAlignment="Top" Width="104" />
-        <Button Content="Modificar" Height="23" HorizontalAlignment="Left" Margin="309,217,0,0" Name="button2" VerticalAlignment="Top" Width="162" Click="button2_Click" />
+        <TextBox Height="23" HorizontalAlignment="Left" Margin="12,12,0,0" Name="textBox1" VerticalAlignment="Top" Width="50" />
+        <Button Content="Categoría" Height="23" HorizontalAlignment="Left" Margin="68,11,0,0" Name="button1" VerticalAlignment="Top" Width="75" Click="button1_Click" />
+        <Label Content="Label" Height="28" HorizontalAlignment="Left" Margin="12,0,0,77" Name="label1" VerticalAlignment="Bottom" Width="50" />
+        <TextBox Height="23" HorizontalAlignment="Left" Margin="53,0,0,80" Name="textBox2" VerticalAlignment="Bottom" Width="120" />
+        <TextBox HorizontalAlignment="Left" Margin="179,0,0,80" Name="textBox3" Width="70" Height="23" VerticalAlignment="Bottom" />
+        <Button Content="Modificar" Height="23" HorizontalAlignment="Left" Margin="255,0,0,81" Name="button2" VerticalAlignment="Bottom" Width="75" Click="button2_Click" />
+        <Button Content="Insertar" Height="23" HorizontalAlignment="Left" Margin="336,0,0,81" Name="button3" VerticalAlignment="Bottom" Width="75" Click="button3_Click" />
+        <Button Content="Borrar" Height="23" HorizontalAlignment="Left" Margin="417,0,0,81" Name="button4" VerticalAlignment="Bottom" Width="75" Click="button4_Click" />
     </Grid>
 </Window>

@@ -122,5 +122,11 @@ namespace ProyectoDatos
             Window v = new V16_Entity05();
             v.Show();
         }
+
+        private void button17_Click(object sender, RoutedEventArgs e)
+        {
+            Window v = new V17_Entity06();
+            v.Show();
+        }
     }
 }

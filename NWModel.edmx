@@ -363,10 +363,10 @@
           <Property Name="SupplierID" Type="Int32" />
           <Property Name="CategoryID" Type="Int32" />
           <Property Name="QuantityPerUnit" Type="String" MaxLength="20" Unicode="true" FixedLength="false" />
-          <Property Name="UnitPrice" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="UnitPrice" Type="Decimal" Precision="19" Scale="4" ConcurrencyMode="Fixed" />
           <Property Name="UnitsInStock" Type="Int16" />
-          <Property Name="UnitsOnOrder" Type="Int16" />
-          <Property Name="ReorderLevel" Type="Int16" />
+          <Property Name="UnitsOnOrder" Type="Int16" ConcurrencyMode="Fixed" />
+          <Property Name="ReorderLevel" Type="Int16" ConcurrencyMode="Fixed" />
           <Property Name="Discontinued" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Categoria" Relationship="northwindModel.FK_Products_Categories" FromRole="Products" ToRole="Categories" />
           <NavigationProperty Name="Order_Details" Relationship="northwindModel.FK_Order_Details_Products" FromRole="Producto" ToRole="Order_Detail" />

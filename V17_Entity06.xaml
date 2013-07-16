@@ -1,0 +1,24 @@
+﻿<Window x:Class="ProyectoDatos.V17_Entity06"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="V17_Entity06" Height="300" Width="846">
+    <Grid>
+        <DataGrid AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="12,12,12,41" Name="productosDataGrid" RowDetailsVisibilityMode="VisibleWhenSelected" >
+            <DataGrid.Columns>
+                <DataGridTextColumn x:Name="productIDColumn" Binding="{Binding Path=ProductID}" Header="Product ID" Width="SizeToHeader" />
+                <DataGridTextColumn x:Name="productNameColumn" Binding="{Binding Path=ProductName}" Header="Product Name" Width="SizeToHeader" />
+                <DataGridTextColumn x:Name="supplierIDColumn" Binding="{Binding Path=SupplierID}" Header="Supplier ID" Width="SizeToHeader" />
+                <DataGridTextColumn x:Name="categoryIDColumn" Binding="{Binding Path=CategoryID}" Header="Category ID" Width="SizeToHeader" />
+                <DataGridTextColumn x:Name="quantityPerUnitColumn" Binding="{Binding Path=QuantityPerUnit}" Header="Quantity Per Unit" Width="SizeToHeader" />
+                <DataGridTextColumn x:Name="unitPriceColumn" Binding="{Binding Path=UnitPrice}" Header="Unit Price" Width="SizeToHeader" />
+                <DataGridTextColumn x:Name="unitsInStockColumn" Binding="{Binding Path=UnitsInStock}" Header="Units In Stock" Width="SizeToHeader" />
+                <DataGridTextColumn x:Name="unitsOnOrderColumn" Binding="{Binding Path=UnitsOnOrder}" Header="Units On Order" Width="SizeToHeader" />
+                <DataGridTextColumn x:Name="reorderLevelColumn" Binding="{Binding Path=ReorderLevel}" Header="Reorder Level" Width="SizeToHeader" />
+                <DataGridCheckBoxColumn x:Name="discontinuedColumn" Binding="{Binding Path=Discontinued}" Header="Discontinued" Width="SizeToHeader" />
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button Content="Recargar (gana BBDD)" Height="23" HorizontalAlignment="Left" Margin="12,0,0,12" Name="button1" VerticalAlignment="Bottom" Width="125" Click="button1_Click" />
+        <Button Content="Recargar (gano yo)" Height="23" HorizontalAlignment="Left" Margin="143,0,0,12" Name="button2" VerticalAlignment="Bottom" Width="125" Click="button2_Click" />
+        <Button Content="Actualizar BBDD" Height="23" HorizontalAlignment="Left" Margin="274,0,0,12" Name="button3" VerticalAlignment="Bottom" Width="125" Click="button3_Click" />
+    </Grid>
+</Window>

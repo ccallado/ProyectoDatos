@@ -18,77 +18,154 @@ namespace ProyectoDatos
     /// </summary>
     public partial class V16_Entity05 : Window
     {
+        //ObjectContext
+        ProyectoDatos.northwindEntities northwindEntities;
+        //Consulta de productos
+        System.Data.Objects.ObjectQuery<ProyectoDatos.Producto> productosQuery;
+        //Vista asociada al DataGrid creada como recurso en XAML
+        System.Windows.Data.CollectionViewSource productosViewSource;
+
         public V16_Entity05()
         {
             InitializeComponent();
-        }
 
-        private System.Data.Objects.ObjectQuery<Producto> GetProductosQuery(northwindEntities northwindEntities)
-        {
-            // Código generado automáticamente
-
-            System.Data.Objects.ObjectQuery<ProyectoDatos.Producto> productosQuery = northwindEntities.Productos;
-            // Para cargar datos explícitamente, puede ser necesario agregar métodos Include similares al siguiente:
-            // productosQuery = productosQuery.Include("Productos.Categoria").
-            // Para obtener más información, vea http://go.microsoft.com/fwlink/?LinkId=157380
-            // Devuelve un elemento ObjectQuery.
-            return productosQuery;
-        }
-
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-
+            northwindEntities = new ProyectoDatos.northwindEntities();
+            productosQuery = northwindEntities.Productos;
+            productosViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("productosViewSource")));
+            label1.Content = "";
         }
 
         private void button1_Click(object sender, RoutedEventArgs e)
         {
-            ProyectoDatos.northwindEntities northwindEntities = new ProyectoDatos.northwindEntities();
-            // Cargar datos en Productos. Puede modificar este código según sea necesario.
-            System.Windows.Data.CollectionViewSource productosViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("productosViewSource")));
-            System.Data.Objects.ObjectQuery<ProyectoDatos.Producto> productosQuery = this.GetProductosQuery(northwindEntities);
-            productosViewSource.Source = productosQuery.Execute(System.Data.Objects.MergeOption.AppendOnly).Where(p => p.CategoryID == int.Parse(textBox1.Text));
-
+            productosViewSource.Source = productosQuery.Execute(System.Data.Objects.MergeOption.AppendOnly)
+                                                       .Where(p => p.CategoryID == int.Parse(textBox1.Text));
         }
 
         private void productosDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Producto  p = productosDataGrid.SelectedItem as Producto;
-
-            textBox2.Text = p.ProductName;
-            textBox3.Text = p.UnitPrice.ToString();
+            Producto p = productosDataGrid.SelectedItem as Producto;
+            if (p != null)
+            {
+                label1.Content = p.ProductID;
+                textBox2.Text = p.ProductName;
+                textBox3.Text = p.UnitPrice.ToString();
+            }
+            else
+            {
+                label1.Content = "";
+                textBox2.Text = "";
+                textBox3.Text = "";
+            }
         }
 
         private void button2_Click(object sender, RoutedEventArgs e)
         {
-            //Para tener el ID del producto
-            Producto  pr = productosDataGrid.SelectedItem as Producto;
-
-            //Creo de nuevo el objeto vacio
-            ProyectoDatos.northwindEntities northwindEntities = new ProyectoDatos.northwindEntities();
-
             object opr;
-            //Busco el objeto por el EntityKey, si no lo encuentra en northwindEntities
-            //que en este caso está vacío lo va a buscar a la base de datos, si no lo encontrase
-            //daría la excepción en este caso con TryGet..... no da excepción lo pone a null
-            //northwindEntities.TryGetObjectByKey(pr.EntityKey, out opr);
-            // Otra forma
-            // Debe estar completamente cualificado debe llevar northwindEntities.Productos
             System.Data.EntityKey clave =
-                new System.Data.EntityKey("northwindEntities.Productos", "ProductID", pr.ProductID);
-            northwindEntities.TryGetObjectByKey(clave, out opr);
-            Producto pe = null;
-            if (opr != null)
-                pe = opr as Producto;
-            if (pe != null)
+                new System.Data.EntityKey("northwindEntities.Productos",
+                                          "ProductID",
+                                          Convert.ToInt32(label1.Content));
+            if (northwindEntities.TryGetObjectByKey(clave, out opr))
             {
-                pe.UnitPrice = decimal.Parse(textBox3.Text);
+                //Si entra por verdadero sabemos que tenemos la entidad, que es de tipo Producto
+                Producto p = opr as Producto;
+                p.UnitPrice = decimal.Parse(textBox3.Text);
                 northwindEntities.SaveChanges();
-                //Vuelvo a cargar los productos en la grid
                 button1_Click(null, null);
+                MessageBox.Show("BBDD Actualizada");
             }
             else
                 MessageBox.Show("No existe el producto");
         }
 
+        private void button3_Click(object sender, RoutedEventArgs e)
+        {
+            Producto p;
+            p = Producto.CreateProducto(-1, textBox2.Text, false);
+            p.SupplierID = 1;
+            p.CategoryID = int.Parse(textBox1.Text);
+            p.UnitPrice = decimal.Parse(textBox3.Text);
+            p.UnitsInStock = 100;
+            //La instancia pasa de Detached a Inserted (Estados monitorizados)
+            northwindEntities.AddToProductos(p);
+            northwindEntities.SaveChanges();
+            button1_Click(null, null);
+            //Me muevo al último, así se actualiza la label
+            productosViewSource.View.MoveCurrentToLast();
+
+            MessageBox.Show("BBDD Actualizada");
+        }
+
+        private void button4_Click(object sender, RoutedEventArgs e)
+        {
+            object opr;
+            System.Data.EntityKey clave =
+                new System.Data.EntityKey("northwindEntities.Productos",
+                                          "ProductID",
+                                          Convert.ToInt32(label1.Content));
+            if (northwindEntities.TryGetObjectByKey(clave, out opr))
+            {
+                //Si entra por verdadero sabemos que tenemos la entidad, que es de tipo Producto
+                Producto pr = opr as Producto;
+                MessageBoxResult res;
+                res = MessageBox.Show("Seguro que desea borrar '" + pr.ProductName + "'?",
+                                      "Borrado",
+                                      MessageBoxButton.YesNo,
+                                      MessageBoxImage.Exclamation,
+                                      MessageBoxResult.No);
+
+                if (res == MessageBoxResult.Yes)
+                {
+                    northwindEntities.DeleteObject(pr);
+                    northwindEntities.SaveChanges();
+                    button1_Click(null, null);
+                    MessageBox.Show("BBDD Actualizada");
+                }
+            }
+            else
+                MessageBox.Show("No existe el producto");
+        }
+
+
+        //private void button2_Click(object sender, RoutedEventArgs e)
+        //{
+        //    //Para probar esto hay que modificar el Modelo y establecer EN CADA CAMPO DE LAS ENTIDADES DEL MODELO en que queramos chequeo, 
+        //    //la propiedad "Modo de Simultaneidad" ("ConcurrencyMode") a FIXED, ya que por defecto viene a NONE y no se chequea concurrencia.
+
+        //    //Además el método SaveChanges() crea una transacción IMPLICITA que autogestiona.
+        //    //Si falla la operación del método, además de saltar la excepción deshace lo que haya hecho.
+        //    try
+        //    {
+        //        northwindEntities.SaveChanges();
+        //        northwindEntities.Refresh(System.Data.Objects.RefreshMode.StoreWins, northwindEntities.Productos);
+        //        MessageBox.Show("BBDD actualizada.");
+        //    }
+        //    catch (System.Data.OptimisticConcurrencyException ex)
+        //    {
+        //        //MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        //        MessageBoxResult res;
+        //        res = MessageBox.Show("Se han producido errores de concurrencia.\n¿Desea sobreescribir los valores de la BBDD?", 
+        //                              "Error de concurrencia.", 
+        //                              MessageBoxButton.YesNo,
+        //                              MessageBoxImage.Exclamation,
+        //                              MessageBoxResult.No);
+        //        if (res == MessageBoxResult.Yes)
+        //        {
+        //            //Recargo pero doy prioridad a mis datos. Las entidades quedan preparadas para ser actualizadas.
+        //            northwindEntities.Refresh(System.Data.Objects.RefreshMode.ClientWins, northwindEntities.Productos);
+        //            northwindEntities.SaveChanges();
+        //            MessageBox.Show("BBDD actualizada con los datos locales.");
+        //        }
+        //        else
+        //        {
+        //            //Recargo pero doy prioridad a los datos de la BBDD.
+        //            northwindEntities.Refresh(System.Data.Objects.RefreshMode.StoreWins, northwindEntities.Productos);
+        //            MessageBox.Show("Recargado con los datos de la BBDD.");
+        //        }
+        //    }
+
+        //}
+
+       
     }
 }
